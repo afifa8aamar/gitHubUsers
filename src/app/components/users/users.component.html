@@ -1,1 +1,48 @@
-<p>users works!</p>
+<div class="users__wrap">
+    <div class="header">
+        <h1>home</h1>
+        <div>
+            <div class="search">
+                <input #text type="text" placeholder="search user">
+                <button (click)="search(text.value)">search</button>
+            </div>
+            <div class="history">
+                last searches: <span *ngFor="let item of getHistory()">{{item}}</span>
+            </div>
+        </div>
+        <div class="view">
+            <span>view: </span>
+            <div class="style">
+                <img class="icon grid-icon" (click)="setStyle('grid')" src="https://img.icons8.com/metro/26/000000/activity-grid-2.png"/> 
+                <img class="icon grid-icon" (click)="setStyle('list')" src="https://img.icons8.com/fluent-systems-filled/24/000000/summary-list.png"/>
+            </div>
+        </div>
+    </div>
+    <div class="list__wrap" [ngClass]="{unwrapflex: style == 'list', wrapflex : style == 'grid'}">
+        <div *ngFor="let user of users" appCard='"list' 
+            class="users" 
+            [ngClass]="{list: style == 'list', grid : style == 'grid'}" 
+            (click)="navigate(user)">
+            <div class="general">
+                <img src="{{user.avatar_url}}" alt="img">
+                <div class="user-info">
+                    <span class="name">{{user.login}}</span>
+                    <span class="type">{{user.type}}</span>
+                </div>
+            </div>
+            <div class="repos" *ngIf="user.repos">
+                <h4>repos</h4>
+                <div *ngIf="user.repos.length>0">
+                    <div *ngFor="let repo of user.repos.slice(0, 3)">
+                        {{repo.full_name}}
+                    </div>
+                </div>
+                <div *ngIf="user.repos.lenth == 0">
+                    No repo
+                </div>
+      
+            </div>
+
+        </div>
+    </div>
+</div>
