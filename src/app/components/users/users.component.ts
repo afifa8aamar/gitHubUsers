@@ -1,8 +1,8 @@
+import { mergeMap } from 'rxjs/operators';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { IUser } from 'src/app/models/IUser';
 import { Router } from '@angular/router';
-import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-users',
@@ -25,15 +25,18 @@ export class UsersComponent implements OnInit {
   }
 
   getData() {
-    this.userService.getUserList().subscribe(data => {
-      this.users = data;
-      this.users.map(user=>{
-        this.userService.getUserRepos(user).subscribe(repos => {
-          user.repos = repos;
+    this.userService.getUserList().pipe(
+      mergeMap(users=> {
+        this.users = users;
+        this.users.map(user=>{
+          this.userService.getUserRepos(user).subscribe(repos => {
+            user.repos = repos;
+          })
         })
+        return users;
       })
-    });
-
+    ).subscribe()
+  
   }
 
   search (text) {

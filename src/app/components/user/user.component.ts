@@ -4,6 +4,8 @@ import { IRepo } from './../../models/IRepo';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
+import { mergeMap } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -23,13 +25,20 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     let username = this.activatedRoute.snapshot.paramMap.get('user');
-    this.userService.getUserList().subscribe(data => {
-      this.owner = data.find(user => user.login == username);
-      this.userService.getUserRepos(this.owner).subscribe(repos => {
-        this.repos = repos;
+    this.userService.getUserList()
+    .pipe(
+      mergeMap(users => { 
+        this.owner = users.find(user => user.login == username);
+        forkJoin({
+          repos : this.userService.getUserRepos(this.owner),
+          orgnizations : this.userService.getOrganization(this.owner)
+        }).subscribe(data => {
+          this.repos = data.repos;
+          this.orgnizations = data.orgnizations
+        })
+        return users
       })
-      this.userService.getOrganization(this.owner).subscribe(orgs => this.orgnizations = orgs);
-    });
+    ).subscribe();
   }
 
   goBack() {
