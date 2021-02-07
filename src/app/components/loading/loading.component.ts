@@ -15,10 +15,8 @@ export class LoadingComponent implements OnInit {
   constructor(private loadingService: LoadingService) { }
  
   ngOnInit() {
-    console.log('k');
     
     this.loadingService.isLoading.pipe(distinctUntilChanged()).subscribe(res => {
-      console.log(res);
       this.loading = res;
     });
   }

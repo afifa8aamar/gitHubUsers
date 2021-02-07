@@ -8,6 +8,7 @@ export class LoadingService {
  
   isLoading = new BehaviorSubject(false);
  
-  constructor() { }
+  constructor() { 
+   }
  
 }

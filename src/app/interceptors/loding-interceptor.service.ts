@@ -36,9 +36,9 @@ export class LoaderInterceptor implements HttpInterceptor {
               this.removeRequest(req);
               observer.next(event);
             }
-            else {
-              this.loadingService.isLoading.next(false);
-            }
+            // else {
+            //   this.loadingService.isLoading.next(false);
+            // }
           },
           err => {
             this.removeRequest(req);
