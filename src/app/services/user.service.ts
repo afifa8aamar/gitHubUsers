@@ -1,3 +1,4 @@
+import { IOrgnization } from './../models/IOrgnization';
 import { IRepo } from './../models/IRepo';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -25,4 +26,11 @@ export class UserService {
     const url = "assets/repos.json"
     return this.httpClient.get<IRepo[]>(url);
   }
+
+  getOrganization(user : IUser): Observable<IOrgnization[]> {
+    // const url = ` https://api.github.com/users/${user}/orgs`;
+    const url = "assets/orgs.json"
+    return this.httpClient.get<IOrgnization[]>(url);
+  }
+
 }

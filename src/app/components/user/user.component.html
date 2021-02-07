@@ -1,1 +1,38 @@
-<p>user works!</p>
+<div class="user__wrap">
+    <div class="header">
+        <h1>User Page</h1>
+        <button class="back" (click)="goBack()">back</button>
+    </div>
+    <div appCard='grid' class="data__wrap">
+        <h3>{{owner?.login}}</h3>
+        <div class="bottom">
+            <div class="left">
+                <img src="{{owner?.avatar_url}}" alt="img">
+            </div>
+            <div class="right">
+                <div class="user-info">
+                    <div class="name">{{owner?.login}}</div>
+                    <div class="type">{{owner?.type}}</div>
+                </div>
+                <div class="repos"> 
+                    <h3>repos</h3>
+                    <div class="repo" *ngFor="let repo of repos?.slice(0, 3)">
+                        {{repo?.html_url}}
+                    </div>
+                    <div *ngIf="repos && repos.length == 0" class="no-repo">no repos to display</div>
+                </div>
+                <div class="orgnizations">
+                    <h3>orgnizations</h3>
+                    <div>
+                        <div class="orgnization" *ngFor="let org of orgnizations">
+                            <img src="{{org.avatar_url}}" alt="img">
+                            <a href="{{org.url}}">{{org.url}}</a>
+                        </div>
+                        <div *ngIf="orgnizations && orgnizations.length == 0" class="no-orgnization">no orgnizations to display</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
