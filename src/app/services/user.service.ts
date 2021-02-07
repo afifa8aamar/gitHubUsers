@@ -14,22 +14,24 @@ export class UserService {
   constructor(
       private httpClient: HttpClient
     ) { }
+
+    ///json ფაილები სატესტოდ დამჭირდა API rate limit-ის გამო
  
   getUserList(): Observable<IUser[]> {
-    // const url = ` https://api.github.com/users`;
-    const url = "assets/users.json"
+    const url = ` https://api.github.com/users`;
+    // const url = "assets/users.json"
     return this.httpClient.get<IUser[]>(url);
   }
 
   getUserRepos(user : IUser): Observable<IRepo[]> {
-    // const url = ` https://api.github.com/users/${user.login}/repos`;
-    const url = "assets/repos.json"
+    const url = ` https://api.github.com/users/${user.login}/repos`;
+    // const url = "assets/repos.json"
     return this.httpClient.get<IRepo[]>(url);
   }
 
   getOrganization(user : IUser): Observable<IOrgnization[]> {
-    // const url = ` https://api.github.com/users/${user}/orgs`;
-    const url = "assets/orgs.json"
+    const url = ` https://api.github.com/users/${user.login}/orgs`;
+    // const url = "assets/orgs.json"
     return this.httpClient.get<IOrgnization[]>(url);
   }
 
