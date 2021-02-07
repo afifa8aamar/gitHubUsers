@@ -15,6 +15,10 @@ export const routes: Routes = [
     {
         path : ':user',
         component : UserComponent
+    },
+    { 
+        path: "**", 
+        redirectTo: "not_found" 
     }
 
 ]

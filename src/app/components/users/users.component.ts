@@ -12,7 +12,7 @@ import { mergeMap } from 'rxjs/operators';
 export class UsersComponent implements OnInit {
   style : 'list' | 'grid' = 'grid';
   users: IUser[];
-  history: string[] = ['sdddddd','dsddddddddddd','fssssss','dfdsr'];
+  history: string[];
 
   constructor( 
     private userService : UserService,
@@ -46,11 +46,12 @@ export class UsersComponent implements OnInit {
   }
 
   saveHistory(text?) {
-    if(text)
-      this.history.push(text);
-    this.history = this.history.slice(this.history.length-3, this.history.length)
+    this.history = JSON.parse(localStorage.getItem('search'));
+    if(!this.history)
+      this.history = [];
+    if(this.history.length>3)
+      this.history = this.history.slice(this.history.length-3, this.history.length)
     localStorage.setItem('search', JSON.stringify(this.history))
-    console.log(this.getHistory());
     
   }
 

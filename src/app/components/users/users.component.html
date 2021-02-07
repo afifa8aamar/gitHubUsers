@@ -3,7 +3,7 @@
         <h1>home</h1>
         <div>
             <div class="search">
-                <input #text type="text" placeholder="search user">
+                <input (keyup.enter)="search(text.value)" #text type="text" placeholder="search user">
                 <button (click)="search(text.value)">search</button>
             </div>
             <div class="history">

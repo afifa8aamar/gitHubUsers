@@ -4,7 +4,7 @@ import { Directive, ElementRef, HostListener, Input, OnInit } from '@angular/cor
   selector: '[appCard]'
 })
 export class CardDirective implements OnInit {
-  @Input('appCard') style : 'list' | 'grid' = 'list';
+  @Input('appCard') style : 'list' | 'grid' | 'user'= 'list';
 
   constructor(private el: ElementRef) { }
  
@@ -20,15 +20,18 @@ export class CardDirective implements OnInit {
   }
 
   @HostListener('mouseenter') onMouseEnter() {
-    this.el.nativeElement.style.background = '#003346';
-    this.el.nativeElement.style.color = 'white';
-    this.el.nativeElement.style.cursor = 'pointer'
+    if(this.style != 'user') {
+      this.el.nativeElement.style.background = '#184d47';
+      this.el.nativeElement.style.color = 'white';
+      this.el.nativeElement.style.cursor = 'pointer'
+    }
   }
 
   @HostListener('mouseleave') onMouseLeave() {
-    this.el.nativeElement.style.background = '#FFFFFF 0% 0% no-repeat padding-box';
-    this.el.nativeElement.style.color = '#003346';
-
+    if(this.style != 'user') {
+      this.el.nativeElement.style.background = '#FFFFFF 0% 0% no-repeat padding-box';
+      this.el.nativeElement.style.color = '#184d47';
+    }
   }
 
  
